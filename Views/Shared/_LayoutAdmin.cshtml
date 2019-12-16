@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>
+        DigitalX Administration Portal
+    </title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @{
+        var place = "";
+        var action = "";
+        var controller = "";
+        var homeAction = "Search";
+        var fieldName = "";
+        var fieldType = "text";
+        var currentRole = "";
+        var currentUserName = "";
+        var currentUserGivenName = "";
+
+        var currentUser = (DigitalX.Models.Employee)Session["CurrentUser"];
+        if (currentUser != null)
+        { 
+        currentRole = currentUser.Roles.ElementAt(0).Name;
+        currentUserName = currentUser.UserName;
+        currentUserGivenName = currentUser.Name;
+        }
+    }
+    @{ 
+        switch (currentRole)
+        {
+            case "Admin":
+            case "Dispatch":
+                place = "Enter Order Number";
+                action = "SearchByOrderID";
+                controller = "Order";
+                fieldName = "orderId";
+                fieldType = "number";
+                break;
+            case "Service":
+                place = "Enter Customer Name";
+                action = "SearchByName";
+                controller = "Customer";
+                fieldName = "customerName";
+                break;
+            case "Product":
+                place = "Enter Product Name";
+                action = "SearchByName";
+                controller = "Product";
+                fieldName = "productName"; 
+                break;
+            case "HR":
+                place = "Enter Employee Name";
+                action = "SearchByName";
+                controller = "Account";
+                fieldName = "empName";
+                break;
+        }
+    }
+    <div class="container">
+        <div class="row" style="display:flex;">
+            <div id="my-left-menu-body" class="col-md-2">
+                <nav class="navbar navbar-inverse navbar-static-top">
+                    <div class="container-fluid">
+                        <ul class="nav nav-pills nav-stacked  my-menu">
+                            <li>
+                                <br /><br />
+                            </li>
+                            <li>
+                                 <a href="@Url.Action(homeAction, controller)">
+                                    <img src="~/Content/Images/home-5-xxl.png" /><br /> Home
+                                 </a>
+                         
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Search", "Order")">
+                                    <img src="~/Content/Images/package-xl.png" /><br /> Orders
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Search", "Customer")">
+                                    <img src="~/Content/Images/info-4-xxl.png" /><br /> Customers
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="~/Content/Images/guitar-xl.png" /><br />
+                                    Products <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu my-sub-menu">
+                                    <li><a href="@Url.Action("Search", "Product")">Search</a></li>
+                                    <li><a href="@Url.Action("Create", "Product")">Create</a></li>
+                                    <li><a href="@Url.Action("Search", "Product")">Edit</a></li>
+                                    <li><a href="@Url.Action("Search", "Product")">Delete</a></li>
+                                    <li><a href="@Url.Action("Search", "Product")">Request Stock</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="~/Content/Images/workers-xl.png" /><br />
+                                    Employees <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu my-sub-menu">
+                                    <li><a href="@Url.Action("Search", "Account")">View</a></li>
+                                    <li><a href="@Url.Action("Create", "Account")">Create</a></li>
+                                    <li><a href="@Url.Action("Search", "Account")">Delete</a></li>
+                                    <li><a href="@Url.Action("Search", "Account")">Manage Roles</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="~/Content/Images/brand.png" /><br />
+                                    Brands <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu my-sub-menu">
+                                    <li><a href="@Url.Action("List", "Brand")">View</a></li>
+                                    <li><a href="@Url.Action("List", "Brand")">Create</a></li>
+                                    <li><a href="@Url.Action("List", "Brand")">Edit</a></li>
+                                    <li><a href="@Url.Action("List", "Brand")">Delete</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="~/Content/Images/music-2-xl.png" /><br />
+                                    Categories <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu my-sub-menu">
+                                    <li><a href="@Url.Action("List", "Category")">View</a></li>
+                                    <li><a href="@Url.Action("List", "Category")">Create</a></li>
+                                    <li><a href="@Url.Action("List", "Category")">Edit</a></li>
+                                    <li><a href="@Url.Action("List", "Category")">Delete</a></li>                                   
+                                </ul>
+                            </li>
+                            <li>
+                                <br /><br />
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div id="my-right-col" class="col-md-10" style="padding-left:0px;">
+                <div id="my-top-header">
+                    <div class="row" style="position:relative;">
+                        <div class="col-md-4">
+                            <h4 class="heading-lighter">DigitalX ERP System</h4>
+                            @using (Html.BeginForm(@action,controller, FormMethod.Post))
+                            {
+                                <div class="input-group">
+                                    <input type=@fieldType class="form-control" name=@fieldName placeholder="@place">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="submit">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+                            </div>
+                        <div class="col-md-4">
+                            <!--<div class="heading-centered heading-lighter"<i>Welcome!</i>
+                            @currentUserGivenName</div>-->
+                        </div>
+                        <div id="profile-home" class="col-md-3">
+                            <div><img src="~/Content/Images/profile.png" width="50" height="50" /></div>
+                            <div><span style="font-size:smaller"> Logged in as:</span><br /> <span class="heading-colored">@currentUserName</span></div>
+                            <div>
+                                <span class="heading-lighter btn  btn-default btn-full">
+                                    @Html.ActionLink("Log Out", "LogOut", "Account", null,"")
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr style="padding:0px;margin:0px;border-width: 2px;"/>
+                <div class="my-content-body">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <div id="my-footer" class="row">
+            Copyright &copy; DigitalX Corporation
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

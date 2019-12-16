@@ -1,0 +1,16 @@
+﻿@model IEnumerable<DigitalX.Models.Brand>
+
+    <select name="ddlBrand" class="form-control">
+        <option value="0">Select Brand</option>
+        @foreach (var item in Model)
+        {
+            if (TempData["selectedBrandID"] == null)
+            {
+                <option value="@item.BrandID">@item.Name</option>
+            }
+            else
+            {
+                <option value="@item.BrandID" @(@item.BrandID==Convert.ToInt16(TempData["selectedBrandID"]) ? "selected" : "")>@item.Name</option>
+            }
+        }
+    </select>

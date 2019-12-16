@@ -1,0 +1,9 @@
+﻿
+@if (TempData["alertMsg"] != null)
+{
+    <div class="container-fluid row">
+        <div class="col-md-12">
+            <div class="alert alert-dismissible @TempData["alertClass"]"><strong>@TempData["alertMsg"] </strong></div>
+        </div>
+    </div>
+}

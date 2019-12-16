@@ -1,0 +1,396 @@
+﻿body {
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+/******NEW STYLE SHEETS*****/
+:root {
+    --custom-color: #68ae00;
+    --custom-color-fore: white;
+    --custom-color-lightBg: whitesmoke;
+    --custom-color-btn: #f27a21;
+    --custom-color-btn-fore: white;
+}
+#my-top-header {
+    height: 80px;
+    padding-left: 25px;
+    background-color:white;
+   
+}
+
+#my-left-menu-body {
+    padding: 0px;
+    background-color: #222 !important;
+}
+
+#my-right-col {
+    background-color: var(--custom-color-lightBg) !important;
+}
+
+#my-footer {
+    color:white;
+    font-size:smaller;
+    padding-top:10px;
+    padding-bottom:10px;
+    height: 40px;
+    background-color: #222 !important;
+    text-align:center;
+}
+.my-content-body {
+    background-color: var(--custom-color-lightBg) !important;
+    padding-left: 15px;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    padding-right: 10px;
+}
+
+    .my-content-body a:link {
+        color: dimgray !important;
+        background-color: transparent !important;
+    }
+
+    .my-content-body a:visited {
+        color: dimgray !important;
+        background-color: transparent !important;
+    }
+
+    .my-content-body a:hover {
+        color: var(--custom-color) !important;
+        background-color: transparent !important;
+    }
+
+.my-content-body a:active {
+        color: dimgray !important;
+        background-color: transparent !important;
+    }
+
+
+.my-menu img { 
+    height: 25px;
+    width: 25px;
+}
+
+ul.my-menu > li > a {
+    background-color: black;
+    color: var(--custom-color-fore);
+    text-align: center;
+    padding: 10px;
+}
+
+ul.my-menu > li > a:hover {
+    background-color: var(--custom-color) !important;
+    color: var(--custom-color-fore) !important;
+}
+
+ul.my-sub-menu {
+    padding: 0;
+    margin: 0;
+    background-color: var(--custom-color-lightBg);
+}
+
+ul.my-sub-menu > li {
+    border-bottom:1px dotted gray;  
+    margin: 2px;
+}
+
+ul.my-sub-menu > li a {
+        color:dimgray;
+    }
+
+ul.my-sub-menu > li a:hover {
+        color: var(--custom-color);
+    }
+
+.top-short-form {
+    margin-left:10px;
+    margin-bottom: 15px;
+    padding-left:15px;
+}
+
+.space-saver{
+    padding: 0px !important;
+    margin: 0px !important;
+}
+.my-panel {
+    margin: 10px;
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 0px;
+    border: 1px solid lightgray;
+    background-color: white;
+    border: 1px solid #ccc;
+}
+
+.flex-container {
+    display: flex;
+    padding-top:10px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table > tbody > tr > td {
+    vertical-align: middle !important;
+}
+
+.heading-colored {
+    color: var(--custom-color);   
+    font-weight:bolder;
+}
+
+.heading-lighter {
+    color: dimgray;
+    font-weight: bolder;
+}
+
+.heading-centered {
+    text-align: center;
+    font-weight: bold;
+}
+.break-preserve {
+    white-space: pre-wrap !important;
+}
+
+
+.btn-colored {
+    background-color: var(--custom-color-btn);
+    color: var(--custom-color-btn-fore);
+    font-weight: bold;
+}
+
+.btn-full {
+    height:50px;
+    width:100%;
+    margin:0px;
+    line-height:50px;
+    vertical-align:middle;
+}
+
+.pic-preview {
+    text-align: center;
+    padding: 2px;
+    margin: 0px;
+    background-color: darkgray;
+    width: 100%;
+    height: 120px;
+}
+
+.product-thumbnail {
+    height: 40px;
+    width: 40px;
+    border: 1px solid lightgray;
+}
+
+.product-zoomed {
+    height: 430px;
+    width: 100%;
+    border: 1px solid;
+    border-color: var(--custom-color-lightBg);
+    margin: 0px;
+}
+
+.detail-box {
+    padding: 5px !important;
+    overflow-y: auto;
+    font-size: small;
+    height: 130px;
+    white-space: pre-line;
+    margin-bottom: 10px !important;
+}
+
+.top-right-link {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size:smaller;
+}
+
+
+.detail-spacer {
+    margin: 10px, 10px, 20px, 0px;
+    padding-top: 30px;
+    padding-right: 70px;
+    padding-bottom: 30px;
+    padding-left: 70px;
+    background-image: linear-gradient(to bottom right,whitesmoke,gray);
+}
+
+.detail-left-col {
+    margin: 0px;
+    background-color: var(--custom-color-lightBg);
+    padding-top: 0px;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    height:430px;
+}
+
+.detail-right-col {
+    padding-top:5px;
+    background-color: white;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    height: 430px;
+}
+
+.bottom-bar {
+    position:absolute;
+    bottom: 4px;
+    width:98%;
+
+}
+
+.login-container {
+    width: 700px;
+    margin-top: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 70px;
+    padding-bottom:10px;
+}
+
+#profile-home {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+/*Modified bootstrap*/
+.container {
+    background-color: var(--custom-color-lightBg) !important;  
+}
+
+thead {
+    background-color: var(--custom-color);
+    color: var(--custom-color-fore);
+    font-weight: bolder;
+}
+
+.panel-heading{
+    color:dimgray !important;
+}
+
+input.form-control {
+    width: 200px;
+    height: 30px;
+    color: #555555;
+    background-color: #fff;
+}
+
+
+.btn.btn-default {
+    height: 30px;
+    font-size: 12px;
+}
+select[multiple].form-control, select.form-control {
+    width: 200px;
+    height: 30px;
+    font-size: 12px;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background-color: var(--custom-color) !important;
+    border-color: #337ab7;
+}
+
+/*Copied from Bootstrap 4.3.1 for input file control*/
+
+.input-group > .custom-file {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.custom-file {
+    position: relative;
+    display: inline-block;
+    width: 85%; /* Modified by me, actual:100%*/
+    height: calc(1.5em + 0.75rem + 2px);
+    margin-bottom: 0;
+}
+
+.custom-file-input {
+    position: relative;
+    z-index: 2;
+    width: 100%; 
+    height: calc(1.5em + 0.75rem + 2px);
+    margin: 0;
+    opacity: 0;
+}
+
+    .custom-file-input:focus ~ .custom-file-label {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .custom-file-input:disabled ~ .custom-file-label {
+        background-color: #e9ecef;
+    }
+
+    .custom-file-input:lang(en) ~ .custom-file-label::after {
+        content: "Browse";
+    }
+
+    .custom-file-input ~ .custom-file-label[data-browse]::after {
+        content: attr(data-browse);
+    }
+
+.custom-file-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+    .custom-file-label::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 3;
+        display: block;
+        height: calc(1.5em + 0.75rem);
+        padding: 0.375rem 0.75rem;
+        line-height: 1.5;
+        /* color: #495057; */
+        color: var(--custom-color-btn-fore); /*Modified By Me */
+        content: "Browse";
+        /*background-color: #e9ecef;*/
+        background-color: var(--custom-color-btn); /*Modified By Me */
+        border-left: inherit;
+        border-radius: 0 0.25rem 0.25rem 0;
+    }
+
+

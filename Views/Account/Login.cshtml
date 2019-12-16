@@ -1,0 +1,63 @@
+﻿@model DigitalX.Models.Employee
+
+@{
+    Layout = null;
+    ViewBag.Title = "Login";
+}
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>
+            Login
+        </title>
+
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+    </head>
+    <body>
+        <div class="container">
+            <div class="detail-spacer login-container">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="panel panel-default">
+                        <div class="panel-heading heading-lighter">
+                            Enter your credentials here!
+                        </div>
+                         <div class="panel-body">
+                             <div class="form-horizontal">
+                                 <hr />
+                                
+                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                 <div class="form-group">
+                                     @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                     <div class="col-md-10">
+                                         @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control",@required="required",@type="text",Value="admin"} })
+                                         @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                     </div>
+                                 </div>
+
+                                 <div class="form-group">
+                                     @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2"})
+                                     <div class="col-md-10">
+                                         @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control",@required="required",@type = "password",Value="123"} })
+                                         @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                     </div>
+                                 </div>
+
+                                 <div class="form-group">
+                                     <div class="col-md-offset-2 col-md-10">
+                                         <input type="submit" value="Login" class="btn btn-colored" />
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                    </div>              
+                }
+            </div>
+        </div>
+    </body>
+</html>

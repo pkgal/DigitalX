@@ -1,0 +1,47 @@
+﻿@model DigitalX.Models.Package
+  
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title heading-colored" id="exampleModalLabel">Update Package Status Here!</h4>
+        </div>
+
+        @using (Html.BeginForm("_EditStatus", "Order", FormMethod.Post))
+        {
+            @Html.Hidden("packageId", Model.PackageID)
+            <div class="modal-body">
+                <div class="row top-short-form">
+                    <div class="col-md-6 space-saver">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.Editor("invoiceId", new { htmlAttributes = new { @class = "form-control",@type="number", @maxlength = "8",@placeholder = "Enter Invoice ID" } })
+                    </div>
+                    <div class="col-md-6 space-saver">
+                        @Html.Editor("trackingId", new { htmlAttributes = new { @class = "form-control",@maxlength = "8", @placeholder = "Enter Tracking ID" } })
+                    </div>
+                </div>
+                <ul class="list-group" style="margin-bottom:0px;">
+                    @{List<DigitalX.Models.OrderStatus> listOfStatus = (List<DigitalX.Models.OrderStatus>)TempData["StatusList"];}
+                    @foreach (DigitalX.Models.OrderStatus item in listOfStatus)
+                    {
+                        string isChecked = (item.StatusCode == Model.StatusCode) ? "checked" : "";
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="radio" name="radioStatus" value="@item.StatusCode" @isChecked>
+                                </div>
+                                <div class="col-md-8" style="font-size:large;text-align:left;vertical-align:middle">
+                                    @item.Name
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-colored" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-colored">Update</button>
+            </div>
+        }
+
+

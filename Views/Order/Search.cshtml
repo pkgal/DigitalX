@@ -1,0 +1,98 @@
+﻿@model IEnumerable<DigitalX.Models.Order>
+@{
+    ViewBag.Title = "List Of Orders";
+}
+@Html.Action("_AlertBox", "Home")
+<div class="container-fluid">
+    <div class="row top-short-form">
+        <div class="col-md-4 space-saver">
+            @using (Html.BeginForm("SearchByOrderID"))
+             {
+                <div class="form-inline">
+                    @Html.Editor("orderId", new { htmlAttributes = new { @class = "form-control", @required = "required", @type = "number", @placeholder = "Order Number" } })
+                    <input type="submit" value="Search" class="btn btn-default" formaction="SearchByOrderID" />
+                </div>
+            }
+        </div>
+        <div class="col-md-4 space-saver">
+            @using (Html.BeginForm("SearchByCustomer"))
+            {
+                <div class="form-inline">
+                    @Html.Editor("customerName", new { htmlAttributes = new { @class = "form-control", @required = "required", @placeholder = "Customer Name" } })
+                    <input type="submit" value="Search" class="btn btn-default" formaction="SearchByCustomer" />
+
+                </div>
+            }
+        </div>
+        <div class="col-md-3 space-saver">
+           
+        </div>
+        <div class="col-md-2 space-saver ">
+            @using (Html.BeginForm("Search"))
+            {
+                <input type="submit" value="All InComplete" class="btn btn-default" style="margin:0px" formaction="Search" />
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="my-panel">
+            <h4 class="heading-lighter heading-centered">@ViewBag.ordersHeading</h4>
+            @{string displayAtt;}
+            @{displayAtt = Model.Count() <= 0 ? "display:none" : "";}
+            <table class="table table-hover" style="margin-bottom:0px;width:98%;@displayAtt">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="col-md-1"> Order ID</th>
+                        <th class="col-md-2">
+                            Order Date
+                        </th>
+                        <th class="col-md-2">Customer Name</th>
+                        <th class="col-md-2">Shipping Country</th>
+                        <th class="col-md-3">Current Status</th>
+                        <th class="col-md-2">Action</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size:small;">
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            <td>
+                               @x.OrderID
+                            </td>
+                            <td style="font-size:smaller">
+                                @x.OrderDate.ToString("dd-MMM-yyyy hh:mm tt")
+                            </td>
+                            <td>
+                                @(x.Customer.FirstName + " " + x.Customer.LastName)
+                            </td>
+                            <td>
+                                @x.ShipToCountry
+                            </td>
+                            <td>
+                                @{int counter = 0;}
+                                @while (counter < x.Packages.Count())
+                                {
+                                    DigitalX.Models.Package pkg = x.Packages.ElementAt(counter);
+                                    string statusCss= Html.Action("StatusLabelStyle",new {statusCode=pkg.StatusCode.Trim()}).ToString();
+                                    <div class="row">
+                                        <span class="heading-lighter" style="font-size:smaller"><u>Package Id:</u>@pkg.PackageID </span>
+                                        <span class="label @statusCss">@pkg.OrderStatus.Name</span>
+                                    </div>                 
+                                    counter++;
+                                }
+                            </td>
+                            <td>
+                                @if (x.Packages.Count() == 0)
+                                {<button type="button" onclick="location.href='@Url.Action("Initiate", "Order", new { id = x.OrderID })';" class="btn btn-colored btn-sm">Start Processing</button>}
+                               
+                                @if (x.Packages.Count() > 0)
+                                {@Html.ActionLink("Update Status", "Detail", "Order", new { id = x.OrderID }, null)}
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

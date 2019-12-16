@@ -1,0 +1,18 @@
+﻿@model IEnumerable<DigitalX.Models.Category>
+
+@using (Html.BeginForm()){ 
+    foreach (var item in Model)
+    {
+        if (TempData["selectedCategories"] == null)
+        {
+            <input type="checkbox" id="@item.CategoryID" name="chkCategory" value="@item.CategoryID"/>
+        }
+        else
+        {
+            var selectedCatIDs = (short[])TempData["selectedCategories"];
+            <input type="checkbox" id="@item.CategoryID" name="chkCategory" value="@item.CategoryID"
+                   @(selectedCatIDs.Contains(item.CategoryID) ? "checked" : "") />
+        }
+        <label for="@item.CategoryID">@item.Name</label><br/>
+    }
+}

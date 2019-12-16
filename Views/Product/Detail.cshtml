@@ -1,0 +1,57 @@
+﻿@model DigitalX.Models.Product
+
+@{
+    ViewBag.Title = "Product Detail";
+}
+
+
+<div class="container-fluid">
+    <div class="detail-spacer">
+            <div class="row">
+                <div class="col-md-6 detail-left-col">
+                    <img class="product-zoomed" src="@(String.Format("{0}/{1}", System.Web.Configuration.WebConfigurationManager.AppSettings["ProductImagePath"].ToString(), Model.Picture))" />
+                </div>
+                <div class="col-md-6 detail-right-col">
+                     Stock <span class='badge'>@Model.Stock</span>
+                    <br />                  
+                    <div class="top-right-link">
+                        @Html.ActionLink("Back to Product List", "Search")
+                    </div>
+                    <br />
+                    <strong>@(Model.Brand == null ? "" : Model.Brand.Name)</strong>
+                    <h4 class="heading-colored">@Model.Name</h4>
+                    <div class="well well-lg detail-box">
+                        @Model.Description
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-default" style="height:160px;">
+                                <div class="panel-heading">Linked Categories</div>
+                                <ul style="font-size:small;padding-left:15px;margin:8px;">
+                                    @foreach (var item in Model.Product_Category)
+                                    {
+                                        <li>@item.Category.Name</li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row" style="margin-bottom:15px;">
+                                <div class="col-md-6">
+                                    <span class="heading-lighter">Price:</span><br />
+                                    <span class="heading-lighter">Discount:</span>
+                                </div>
+                                <div class="col-md-6" style="font-size:small;">
+                                    $@Model.Price<br />
+                                    $@Model.Discount
+                                </div>
+                            </div>                           
+                            <button type="button" onclick="location.href='@Url.Action("Edit", "Product", new {id = Model.ProductID })';" class="btn btn-colored btn-sm btn-block" formaction="Edit" id="@Model.ProductID">Edit Now</button>
+                            <button type="button" onclick="location.href='@Url.Action("Delete", "Product", new {id = Model.ProductID })';" class="btn btn-colored btn-sm btn-block" formaction="Delete">Delete</button>
+                            <button type="button" onclick="location.href='@Url.Action("Stock", "Product", new {id = Model.ProductID,name=Model.Name})';return false;" class="btn btn-colored btn-sm btn-block">Request Stock</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>   
+</div>

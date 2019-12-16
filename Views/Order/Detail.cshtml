@@ -1,0 +1,76 @@
+﻿@model DigitalX.Models.Order
+
+@{
+    ViewBag.Title = "Order Detail";
+}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="heading-colored"><u>Order ID</u> @Model.OrderID</h3>
+                <h5 class="heading-lighter">Date: @Model.OrderDate.ToString("dd-MMM-yyyy hh:mm tt")</h5>
+                <h5 class="heading-lighter"><u>Shipping Address</u></h5> 
+                     @Model.ShipToAddress <br />
+                    @Model.ShipToCity <br />
+                    @Model.ShipToCountry
+
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default" style="height:160px;">
+                    <div class="panel-heading">Customer Information</div>
+                    <div class="panel-body">
+                        <div class="row" style="font-size:small;">
+                            <div class="col-md-7">
+                                <h5 class="heading-colored">@(Model.Customer.FirstName + " " + Model.Customer.LastName)</h5>
+                                @Model.Customer.Address<br />
+                                @Model.Customer.City<br />
+                                @Model.Customer.Country
+                            </div>
+                            <div class="col-md-5">
+                                <h5 class="heading-lighter"><u>Contact</u></h5> @Model.Customer.Contact
+                                @Model.Customer.Email
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (Model.Packages.Count() > 0)
+        {
+            var pkg1List = @Model.Packages.Where(p => p.IsBackOrder == false).ToList();
+            var pkg2List= @Model.Packages.Where(p => p.IsBackOrder == true).ToList();
+            <div class="row">
+                <div class="col-md-6">
+                    @if (pkg1List.Count() != 0)
+                    {
+                        DigitalX.Models.Package pkg1 = pkg1List.First();
+                        @Html.Action("_PackageDetail", "Order", pkg1)
+                    }
+                    else
+                    {
+                        <div class="well well-lg">No Package1 for this order</div>
+                    }
+                </div>
+                <div class="col-md-6">
+                    @if (pkg2List.Count() != 0)
+                    {
+                        DigitalX.Models.Package pkg2 = pkg2List.First();
+                        @Html.Action("_PackageDetail", "Order", pkg2)
+                    }
+                    else
+                    {
+                        <div class="well well-lg">
+                            No Package2 found for this order
+                        </div>
+                        }
+                </div>
+                </div>
+        }
+        else
+        {
+            <h4>No package present</h4>
+            <div style="width:200px">
+                <button type="button" onclick="location.href='@Url.Action("Initiate", "Order", new { id = Model.OrderID })';" class="btn btn-colored btn-full">Start Processing</button>
+            </div>
+        }
+    </div>

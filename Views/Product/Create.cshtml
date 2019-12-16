@@ -1,0 +1,106 @@
+﻿@model DigitalX.Models.Product
+
+@{
+    ViewBag.Title = "Create Product";
+}
+
+@Html.Action("_AlertBox", "Home")
+<div class="container-fluid row">
+    @using (Html.BeginForm("Create", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading heading-lighter">
+                    Enter Product Details Here!
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10 list-inline">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Picture, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <div class="custom-file">
+                                    @Html.Editor("PictureFile", new { htmlAttributes = new { @class = "custom-file-input", @type = "file", @id = "customFile", @required = "required", onchange = "document.getElementById('PhotoPreview').src = window.URL.createObjectURL(this.files[0]);" } })
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                    @Html.ValidationMessage("PictureFile", "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control break-preserve", rows = 5, @required = "required" })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @type = "number", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control", @type = "number", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Stock, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control", @type = "number", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Brand", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            <div class="col-md-10">
+                                @Html.Action("_BrandList", "Brand")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="panel panel-default " style="margin-bottom:3px;">
+                            <div class="panel-heading">Photo</div>
+                            <div class="panel-body">
+                                <img id="PhotoPreview" class="pic-preview" />
+                            </div>
+                        </div>
+                        <div class="panel panel-default" style="margin-bottom:5px;">
+                            <div class="panel-heading">Link Categories</div>
+                            <div class="panel-body" style="overflow-y: auto; height: 180px">
+                                @Html.Action("_CategoryList", "Category")
+                            </div>
+                        </div>
+                        <div class="panel panel-default" style="margin-bottom:1px;">
+                            <div class="panel-body" style="padding:0px;">
+                                <input type="submit" value="Add New Product" class="btn-full btn btn-colored" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

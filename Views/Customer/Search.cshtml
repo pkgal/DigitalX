@@ -1,0 +1,100 @@
+﻿@model IEnumerable<DigitalX.Models.Customer>
+@{
+    ViewBag.Title = "Customers";
+}
+@Html.Action("_AlertBox", "Home")
+    <div class="container-fluid">
+        <div class="row top-short-form">
+            <div class="col-md-4 space-saver">
+                @using (Html.BeginForm("SearchByOrderID"))
+                {
+                    <div class="form-inline">
+                        @Html.Editor("orderId", new { htmlAttributes = new { @class = "form-control", @required = "required", @type = "number", @placeholder = "Order Number" } })
+                        <input type="submit" value="Search" class="btn btn-default" formaction="SearchByOrderID" />
+                    </div>
+                }
+            </div>
+            <div class="col-md-4 space-saver">
+                @using (Html.BeginForm("SearchByCustomer"))
+                {
+                    <div class="form-inline">
+                        @Html.Editor("customerName", new { htmlAttributes = new { @class = "form-control", @required = "required", @placeholder = "Customer Name" } })
+                        <input type="submit" value="Search" class="btn btn-default" formaction="SearchByCustomer" />
+
+                    </div>
+                }
+            </div>
+        </div>
+
+        @if (Model != null)
+        {
+            foreach (var cus in Model)
+            {
+                <div class="row">
+                    <div class="col-md-5">
+                        <h3 class="heading-colored">@(cus.FirstName + " " + cus.LastName)</h3>
+                        @cus.Contact<br />
+                        @cus.Email
+
+                        <h5 class="heading-lighter"><u>Address</u></h5>
+                        @cus.Address <br />
+                        @cus.City <br />
+                        @cus.Country
+                    </div>
+                    <div class="col-md-7">
+                        <h4 class="heading-lighter heading-centered">Order History</h4>
+                        <div class="panel-group" id="accordion">
+                            @foreach (var ord in cus.Orders)
+                            {
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#@(@ord.OrderID + "_collapse")">
+                                                <span class="heading-lighter">Order ID: @ord.OrderID</span>
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="@(@ord.OrderID + "_collapse")" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                            Order Date: @ord.OrderDate
+                                            Total Amount: @ord.TotalAmount
+                                            <h5 class="heading-lighter"><u>Shipping Address</u></h5>
+                                            @ord.ShipToAddress <br />
+                                            @ord.ShipToCity <br />
+                                            @ord.ShipToCountry
+                                            <table class="table table-hover table-condensed" style="margin-bottom:0px;width:100%">
+                                                <thead class="thead-dark" style="font-size:small;">
+                                                    <tr>
+                                                        <th class="col-md-3"> Product ID</th>
+                                                        <th class="col-md-6"> Name </th>
+                                                        <th class="col-md-3">Quantity</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="font-size:small;">
+                                                    @foreach (var oItem in ord.OrderItems)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @oItem.ProductID
+                                                            </td>
+                                                            <td>
+                                                                @oItem.Product.Name
+                                                            </td>
+                                                            <td>
+                                                                @oItem.Quantity
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <hr style="border-width: 3px;" />
+            }
+        }
+    </div>

@@ -1,0 +1,71 @@
+﻿@model DigitalX.Models.Package
+<div class="panel panel-default" style="overflow-y:auto;height:270px;">
+    <div class="panel-heading heading-centered">
+        <div class="row">
+            <div class="col-md-9">
+                Package ID: @Model.PackageID <br />
+                Current Status: <label class="@Html.Action("StatusLabelStyle", new { statusCode = Model.StatusCode.Trim() }).ToString()" style="padding:2px;color:white;">@Model.OrderStatus.Name</label>
+
+            </div>
+            <div class="col-md-3">
+                <a data-toggle="modal" href="@Url.Action("_EditStatus","Order",new {id =Model.PackageID})" data-target="#@(Model.PackageID + "_modal")">
+                    <span class="btn btn-colored">Update</span>
+                </a>
+                <!-- Modal -->
+                <div class="modal fade" id="@(Model.PackageID + "_modal")" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body" style="font-size:small;">
+        <div class="row">
+            <div class="col-md-7">
+                <u>Updated</u> @Model.LastUpdated.ToString("dd-MMM-yyyy hh:mm tt")
+            </div>
+            <div class="col-md-5">
+                <u>Invoice No.</u> @Model.InvoiceID
+            </div>
+        </div>
+        <div class="row" style="margin-bottom:2px">
+            <div class="col-md-7">
+                <u>Updated By</u> @Model.Employee.Name
+            </div>
+            <div class="col-md-5">
+                <u>Tracking No:</u> @Model.TrackingNo
+            </div>
+        </div>
+        <div class="row" style="padding-top:5px; padding-bottom:0px;">
+            <div class="col-md-12">
+                <table class="table table-hover table-condensed" style="margin-bottom:0px;width:100%">
+                    <thead class="thead-dark" style="font-size:small;">
+                        <tr>
+                            <th class="col-md-3"> Product ID</th>
+                            <th class="col-md-6"> Name </th>
+                            <th class="col-md-3">Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size:small;">
+                        @foreach (var oItem in Model.OrderItems)
+                        {
+                            <tr>
+                                <td>
+                                    @oItem.ProductID
+                                </td>
+                                <td>
+                                    @oItem.Product.Name
+                                </td>
+                                <td>
+                                    @oItem.Quantity
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

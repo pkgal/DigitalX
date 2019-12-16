@@ -1,0 +1,20 @@
+﻿@model DigitalX.Models.Category
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title heading-lighter" id="exampleModalLabel">Edit Category name here!</h4>
+</div>
+@using (Html.BeginForm("_Edit", "Category", FormMethod.Post))
+{
+    <div class="modal-body">
+        @Html.HiddenFor(model => model.CategoryID, Model.CategoryID)
+        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required", @placeholder = Model.Name, @maxLength = "50" } })
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-colored" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-colored">Update</button>
+    </div>
+}
