@@ -249,7 +249,7 @@ namespace DigitalX.Controllers
             ViewBag.productName = name;
 
             IEnumerable<Stockist> stockists = null;
-            using (var client = new HttpClient())
+           /* using (var client = new HttpClient())
             { 
                 string uri = "http://localhost:50521/api/Stock?productID=" + id;
                 var responseTask = client.GetAsync(uri);
@@ -269,7 +269,7 @@ namespace DigitalX.Controllers
                     TempData["alertMsg"] = "Error occurred while processing this request with Error Code: "+ result.StatusCode;
                     TempData["alertClass"] = "alert-danger";
                 }
-            }
+            }*/
             return View(stockists);
         }
     }
